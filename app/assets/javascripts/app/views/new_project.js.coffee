@@ -6,13 +6,12 @@ class App.Views.NewProject extends Backbone.View
     "click .btn_submit": "saveProject"
 
   initialize: ->
-    @listenTo @model, "sync", @triggerProjectCreate
+    @listenTo @model, "sync", @render
+    @model.fetch() unless @model.isNew()
 
-  triggerProjectCreate: ->
-    App.Vent.trigger "project:create", @model
 
   render: ->
-    @$el.html(@template())
+    @$el.html(@template(@model.toJSON()))
     @
 
   saveProject: (e) ->
