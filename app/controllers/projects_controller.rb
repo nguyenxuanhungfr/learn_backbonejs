@@ -1,10 +1,8 @@
 class ProjectsController < ApplicationController
 
   def index
-    respond_to do |format|
-      msg = Project.all
-      format.json  { render :json => msg }
-    end
+    @msg = Project.all
+    render :json => @msg
   end
 
   def create
@@ -14,6 +12,11 @@ class ProjectsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @msg = Project.find_by id: params[:id]
+    render :json => @msg
   end
 
   private
