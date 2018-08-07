@@ -7,8 +7,9 @@ class App.Views.NewProject extends Backbone.View
 
   initialize: ->
     @listenTo @model, "sync", @render
+    @listenTo @model, "invalid", @renderErrors
+    @listenTo @model, "error", @parseErrorRespone
     @model.fetch() unless @model.isNew()
-
 
   render: ->
     @$el.html(@template(@model.toJSON()))
